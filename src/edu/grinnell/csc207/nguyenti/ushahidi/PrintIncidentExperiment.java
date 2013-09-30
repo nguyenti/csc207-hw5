@@ -36,7 +36,7 @@ public class PrintIncidentExperiment {
 	
 	UshahidiExtensions.lowHighId(UshahidiExtensions.ushahidiIncidenttester());
 	
-	
+	pen.close();
     } // main(String[])
     
 }

@@ -11,11 +11,12 @@ import edu.grinnell.glimmer.ushahidi.UshahidiLocation;
 
 public class UshahidiExtensions {
 
+    
     public static void printIncident(PrintWriter pen, UshahidiIncident incident) {
 	pen.println("Incident #: " + incident.getId());
 	pen.println("  Title: " + incident.getTitle());
 	pen.println("  Description: " + incident.getDescription());
-	pen.println("  Date: " + incident.getDate().get(Calendar.MONTH) + "/"
+	pen.println("  Date: " + (incident.getDate().get(Calendar.MONTH) + 1) + "/"
 		+ incident.getDate().get(Calendar.DATE) + "/" + incident.getDate().get(Calendar.YEAR));
 	pen.println("  Location: " + incident.getLocation());
 	pen.println("  Status: (" + incident.getMode() + ", "
@@ -24,17 +25,16 @@ public class UshahidiExtensions {
 
     public static UshahidiIncidentList ushahidiIncidenttester() {
 	UshahidiIncidentList incidents = new UshahidiIncidentList();
-	Calendar date = Calendar.getInstance();
-	Random rand = new Random(123456789);
+	Random rand = new Random();
 	for (int i = 0; i < 12; i++) {
+	    Calendar date = Calendar.getInstance();
 	    date.set(rand.nextInt(3000), rand.nextInt(12) + 1,
 		    rand.nextInt(28) + 1);
 	    incidents.addIncident(new UshahidiIncident(i, "Clever title " + i,
-		    date, new UshahidiLocation(rand.nextInt(), "Location " + i,
-			    rand.nextInt(180) + rand.nextDouble(), rand
-				    .nextInt(180) + rand.nextDouble()),
+		    date, new UshahidiLocation(Math.abs(rand.nextInt()), "Location " + i,
+			    rand.nextInt(179) + rand.nextDouble(), rand
+				    .nextInt(179) + rand.nextDouble()),
 		    "Mmm, cheese."));
-	    //rand.setSeed(i*10000);
 	}
 	return incidents;
     }

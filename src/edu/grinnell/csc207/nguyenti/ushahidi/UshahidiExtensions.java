@@ -68,20 +68,23 @@ public class UshahidiExtensions {
 
 	public static UshahidiIncident[] arrayWithin(UshahidiClient client,
 			Calendar start, Calendar end) throws Exception {
-		UshahidiIncident[] allIncidents = client.getIncidents();
+		UshahidiIncident[] hack = new UshahidiIncident[1];		
 		ArrayList<UshahidiIncident> incidentsWithin = new ArrayList<UshahidiIncident>();
-		for (int i = 0; i < allIncidents.length; i++) {
-			if (allIncidents[i].getDate().compareTo(start) >= 0
-					&& allIncidents[i].getDate().compareTo(end) <= 0) {
-				incidentsWithin.add(allIncidents[i]);
+		
+		while (client.hasMoreIncidents()) {
+			UshahidiIncident test = client.nextIncident();
+			if (test.getDate().compareTo(start) >= 0
+					&& test.getDate().compareTo(end) <= 0) {
+				incidentsWithin.add(test);
 			}// if
 		}// for
 		
-		UshahidiIncident[] stuff = new UshahidiIncident[incidentsWithin.size()];
-		for (int i = 0; i < stuff.length; i++) {
-			stuff[i] = incidentsWithin.get(i);
-		}
-		return stuff;
+		return incidentsWithin.toArray(hack);
+		
+//		UshahidiIncident[] stuff = new UshahidiIncident[incidentsWithin.size()];
+//		for (int i = 0; i < stuff.length; i++) {
+//			stuff[i] = incidentsWithin.get(i);
+//		}
 	}
 
 }

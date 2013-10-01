@@ -11,9 +11,4 @@ import edu.grinnell.glimmer.ushahidi.UshahidiWebClient;
 
 public class PrintIncidentExperiment {
 
-    public static void main(String[] args) throws Exception {
-	PrintWriter pen = new PrintWriter(System.out, true);
-	} // main(String[])
-
-    
 }

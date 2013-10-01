@@ -34,17 +34,17 @@ public class PrintIncidentExperiment {
 
 		// One that requires connecting to the server
 		UshahidiClient webclient = new UshahidiWebClient("https://farmersmarket.crowdmap.com/");
-		//UshahidiExtensions.printIncident(pen, webclient.nextIncident());
+		UshahidiExtensions.printIncident(pen, webclient.nextIncident());
 
-//		UshahidiExtensions.lowHighId(UshahidiExtensions.ushahidiIncidenttester());
-//		UshahidiExtensions.lowHighId(webclient);
+		UshahidiExtensions.lowHighId(UshahidiExtensions.ushahidiIncidenttester());
+		UshahidiExtensions.lowHighId(webclient);
 		
 		UshahidiExtensions.printWithin(webclient, earlyDate, date);
-		//UshahidiIncident[] incidents = UshahidiExtensions.arrayWithin(webclient, earlyDate, date);
+		UshahidiIncident[] incidents = UshahidiExtensions.arrayWithin(webclient, earlyDate, date);
 
-//		for (int i = 0; i < incidents.length; i++) {
-//			UshahidiExtensions.printIncident(pen, incidents[i]);
-//		}
+		for (int i = 0; i < incidents.length; i++) {
+			UshahidiExtensions.printIncident(pen, incidents[i]);
+		}
 	} // main(String[])
 
 }

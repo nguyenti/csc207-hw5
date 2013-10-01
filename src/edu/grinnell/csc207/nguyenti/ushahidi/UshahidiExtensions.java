@@ -80,11 +80,6 @@ public class UshahidiExtensions {
 		}// for
 		
 		return incidentsWithin.toArray(hack);
-		
-//		UshahidiIncident[] stuff = new UshahidiIncident[incidentsWithin.size()];
-//		for (int i = 0; i < stuff.length; i++) {
-//			stuff[i] = incidentsWithin.get(i);
-//		}
 	}
 
 }

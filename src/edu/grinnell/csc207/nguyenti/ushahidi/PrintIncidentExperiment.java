@@ -95,6 +95,8 @@ public class PrintIncidentExperiment {
 		for (int i = 0; i < incidents.length; i++) {
 			UshahidiExtensions.printIncident(pen, incidents[i]);
 		}
+		
+		pen.close();
 	} // main(String[])
 
 }

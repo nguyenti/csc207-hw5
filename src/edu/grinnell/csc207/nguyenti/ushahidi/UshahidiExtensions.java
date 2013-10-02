@@ -1,3 +1,11 @@
+/*
+ * UshahidiExtensions, siomple extensions for printing/gathering various Ushahidi incidents
+ * @author Daniel Goldstein
+ * @author Mark Lewis
+ * @author Tiffany Nguyen
+ * @author Earnest Wheeler
+ */
+
 package edu.grinnell.csc207.nguyenti.ushahidi;
 
 import java.io.PrintWriter;
@@ -10,7 +18,11 @@ import edu.grinnell.glimmer.ushahidi.UshahidiIncidentList;
 import edu.grinnell.glimmer.ushahidi.UshahidiLocation;
 
 public class UshahidiExtensions {
-
+	/*
+	 * Writes the incident number, title, description, date, location, and status of an incident to the
+	 * location given by the printwriter.
+	 * It is written in a nicely formatted block 
+	 */
 	public static void printIncident(PrintWriter pen, UshahidiIncident incident) {
 		pen.println("Incident #: " + incident.getId());
 		pen.println("  Title: " + incident.getTitle());
@@ -21,8 +33,11 @@ public class UshahidiExtensions {
 		pen.println("  Location: " + incident.getLocation());
 		pen.println("  Status: (" + incident.getMode() + ", "
 				+ incident.getActive() + ", " + incident.getVerified() + ")");
-	}
-
+	} // printIncident
+	/*
+	 * Creates a list of Ushahidi incidents of twelve constructed incidents.
+	 * Primarily used for testing other methods.
+	 */
 	public static UshahidiIncidentList ushahidiIncidenttester() {
 		UshahidiIncidentList incidents = new UshahidiIncidentList();
 		for (int i = 0; i < 12; i++) {
@@ -34,12 +49,16 @@ public class UshahidiExtensions {
 							"Location " + i, i * 10.5, 180 - (3 * i)), "Mmm, cheese."));
 		}
 		return incidents;
-	}
-
+	} // ushahidiIncidenttester
+	/*
+	 * Given an ushahidi client, prints the incidents from the client with the
+	 * lowest and highest incident IDs
+	 */
 	public static void lowHighId(UshahidiClient client) throws Exception {
 		UshahidiIncident incident;
 		UshahidiIncident high = client.nextIncident();
 		UshahidiIncident low = high;
+		// iterate through all incidents, finding highest and lowest
 		while (client.hasMoreIncidents()) {
 			incident = client.nextIncident();
 			int id = incident.getId();
@@ -53,7 +72,12 @@ public class UshahidiExtensions {
 		printIncident(pen, high);
 		printIncident(pen, low);
 	}
-
+	/*
+	 * Given a client and two dates, prints all the incidents in the client
+	 * within the two dates.
+	 * For any incidents to be printed, the start date must be before the 
+	 * end date.
+	 */
 	public static void printWithin(UshahidiClient client, Calendar start,
 			Calendar end) throws Exception {
 		PrintWriter pen = new PrintWriter(System.out, true);
@@ -65,10 +89,17 @@ public class UshahidiExtensions {
 			}// if
 		}// while
 	}// printWithin
-
+	/*
+	 * Given a client and two dates, returns an array of type 
+	 * UshahidiIncident containing all of the incidents within
+	 * the client that occured within the two dates.
+	 * For the array returned to be nonempty, the start date must be
+	 * before the end date.
+	 */
 	public static UshahidiIncident[] arrayWithin(UshahidiClient client,
 			Calendar start, Calendar end) throws Exception {
-		UshahidiIncident[] hack = new UshahidiIncident[1];		
+		UshahidiIncident[] hack = new UshahidiIncident[1];
+		// Use an arraylist for variable length
 		ArrayList<UshahidiIncident> incidentsWithin = new ArrayList<UshahidiIncident>();
 		
 		while (client.hasMoreIncidents()) {

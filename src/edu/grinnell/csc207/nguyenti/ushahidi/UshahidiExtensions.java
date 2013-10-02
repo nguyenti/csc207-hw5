@@ -1,5 +1,6 @@
-/*
- * UshahidiExtensions, siomple extensions for printing/gathering various Ushahidi incidents
+/**
+ * UshahidiExtensions, simple extensions for printing/gathering various Ushahidi incidents
+ * 
  * @author Daniel Goldstein
  * @author Mark Lewis
  * @author Tiffany Nguyen
@@ -18,10 +19,11 @@ import edu.grinnell.glimmer.ushahidi.UshahidiIncidentList;
 import edu.grinnell.glimmer.ushahidi.UshahidiLocation;
 
 public class UshahidiExtensions {
-	/*
-	 * Writes the incident number, title, description, date, location, and status of an incident to the
-	 * location given by the printwriter.
-	 * It is written in a nicely formatted block 
+
+	/**
+	 * Writes the incident number, title, description, date, location, and
+	 * status of an incident to the location given by the printwriter. It is
+	 * written in a nicely formatted block
 	 */
 	public static void printIncident(PrintWriter pen, UshahidiIncident incident) {
 		pen.println("Incident #: " + incident.getId());
@@ -34,23 +36,24 @@ public class UshahidiExtensions {
 		pen.println("  Status: (" + incident.getMode() + ", "
 				+ incident.getActive() + ", " + incident.getVerified() + ")");
 	} // printIncident
-	/*
+
+	/**
 	 * Creates a list of Ushahidi incidents of twelve constructed incidents.
 	 * Primarily used for testing other methods.
 	 */
-	public static UshahidiIncidentList ushahidiIncidenttester() {
+	public static UshahidiIncidentList ushahidiIncidentTester() {
 		UshahidiIncidentList incidents = new UshahidiIncidentList();
 		for (int i = 0; i < 12; i++) {
 			Calendar date = Calendar.getInstance();
-			date.set(3000 - (150 * i), i + 1,
-					28 - (2 * i));
+			date.set(3000 - (150 * i), i + 1, 28 - (2 * i));
 			incidents.addIncident(new UshahidiIncident(i, "Clever title " + i,
-					date, new UshahidiLocation(i,
-							"Location " + i, i * 10.5, 180 - (3 * i)), "Mmm, cheese."));
-		}
+					date, new UshahidiLocation(i, "Location " + i, i * 10.5,
+							180 - (3 * i)), "Mmm, cheese."));
+		}// for
 		return incidents;
-	} // ushahidiIncidenttester
-	/*
+	} // ushahidiIncidentTester
+
+	/**
 	 * Given an ushahidi client, prints the incidents from the client with the
 	 * lowest and highest incident IDs
 	 */
@@ -64,19 +67,20 @@ public class UshahidiExtensions {
 			int id = incident.getId();
 			if (id > high.getId()) {
 				high = incident;
-			} else if (id < low.getId()) {
+			}// if
+			else if (id < low.getId()) {
 				low = incident;
-			}
-		}
+			}// else if
+		}// while
 		PrintWriter pen = new PrintWriter(System.out, true);
 		printIncident(pen, high);
 		printIncident(pen, low);
-	}
-	/*
+	}// lowHighId
+
+	/**
 	 * Given a client and two dates, prints all the incidents in the client
-	 * within the two dates.
-	 * For any incidents to be printed, the start date must be before the 
-	 * end date.
+	 * within the two dates. For any incidents to be printed, the start date
+	 * must be before the end date.
 	 */
 	public static void printWithin(UshahidiClient client, Calendar start,
 			Calendar end) throws Exception {
@@ -89,11 +93,11 @@ public class UshahidiExtensions {
 			}// if
 		}// while
 	}// printWithin
-	/*
-	 * Given a client and two dates, returns an array of type 
-	 * UshahidiIncident containing all of the incidents within
-	 * the client that occured within the two dates.
-	 * For the array returned to be nonempty, the start date must be
+
+	/**
+	 * Given a client and two dates, returns an array of type UshahidiIncident
+	 * containing all of the incidents within the client that occured within the
+	 * two dates. For the array returned to be nonempty, the start date must be
 	 * before the end date.
 	 */
 	public static UshahidiIncident[] arrayWithin(UshahidiClient client,
@@ -101,16 +105,16 @@ public class UshahidiExtensions {
 		UshahidiIncident[] hack = new UshahidiIncident[1];
 		// Use an arraylist for variable length
 		ArrayList<UshahidiIncident> incidentsWithin = new ArrayList<UshahidiIncident>();
-		
+
 		while (client.hasMoreIncidents()) {
 			UshahidiIncident test = client.nextIncident();
 			if (test.getDate().compareTo(start) >= 0
 					&& test.getDate().compareTo(end) <= 0) {
 				incidentsWithin.add(test);
 			}// if
-		}// for
-		
-		return incidentsWithin.toArray(hack);
-	}
+		}// while
 
-}
+		return incidentsWithin.toArray(hack);
+	}// arrayWithin
+
+}// UshahidiExtensions
